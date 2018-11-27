@@ -1,0 +1,127 @@
+@font-face{
+    font-family: Sif-pcf;
+    font-weight: normal;
+    font-style: normal;
+	  src: url('/assets/fonts/MTLmr3m.ttf') format('truetype');
+}
+.br{
+  height: 15px;
+  width: 100%;
+}
+.hr{
+  height: 15px;
+  width: 100%;
+  background-image: url('../../resources/ui_img/hr.png');
+  background-repeat: repeat-x;
+  background-position: center;
+  background-size: auto;
+}
+.gobtn{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.goup{
+  float: left;
+}
+.godowm{
+  float: right;
+}
+.mdui-card{
+  margin-bottom: 10px;
+}
+
+.gotab{
+  margin-bottom: 10px !important;
+}
+
+.icon-code {
+    -webkit-tap-highlight-color: transparent;
+    height: 120px;
+    text-align: center;
+    cursor: pointer;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    min-width: 108px;
+  }
+  .icon-code:hover,
+  .icon-code:focus {
+    background: #f0f0f0;
+  }
+  .icon-code .mdui-icon {
+    height: 48px;
+    width: 48px;
+    font-size: 48px;
+    margin-top: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: rgba(0, 0, 0, 0.54);
+  }
+  .icon-code .icon-caption {
+    color: #757575;
+    font-size: 12px;
+    margin: 16px auto 0 auto;
+    width: 85%;
+    z-index: 1;
+    word-break: break-all;
+  }
+
+  /* 深色主题 */
+
+  .mdui-theme-layout-dark .icon-code .mdui-icon {
+    color: rgba(255, 255, 255, 1);
+  }
+  .mdui-theme-layout-dark .icon-code:hover,
+  .mdui-theme-layout-dark .icon-code:focus {
+    background: #424242;
+  }
+  .mdui-theme-layout-dark .icon-code .icon-caption {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  @media (max-width: 840px) {
+    .icon-code-wrap {
+      padding: 5px;
+    }
+    .icon-code {
+      min-width: 102px;
+    }
+    .icon-code .mdui-icon {
+      width: 42px;
+      height: 42px;
+      font-size: 42px;
+    }
+  }
+  @media (max-width: 560px) {
+    .icon-code-wrap {
+      padding: 2px;
+    }
+    .icon-code {
+      min-width: 96px;
+    }
+    .icon-code .mdui-icon {
+      width: 36px;
+      height: 36px;
+      font-size: 36px;
+    }
+  }
+
+  .js-icon-code-copy {
+    cursor: pointer;
+  }
+
+  .mdui-btn-dense{
+  	margin-bottom: 5px;
+  }
+
+  body{
+    background-color: #FFFFFF;
+  }
+  .framecard{
+      width: 100% !important;
+      max-width: none;
+      margin: 0px;
+      padding: 0px;
+  }

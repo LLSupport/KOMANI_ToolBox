@@ -24,7 +24,7 @@
 		return $result;
 	}
 	function getTop20($csv){
-		$data = csvToArray($_POST['csv']);
+		$data = csvToArray($csv);
 		foreach ($data as $key => $row) {
 			$vf[$key] = $row['vf'];
 		}
@@ -67,7 +67,10 @@
 	<script type="text/javascript" src="/assets/js/holder.js"></script>
 	<script type="text/javascript" src="/assets/js/highlight.js"></script>
 	<script type="text/javascript" src="/assets/js/mdui.js" ></script>
-	<script>var $$ = mdui.JQ;</script>
+	<script>
+		var $$ = mdui.JQ;
+		var csv = <?=json_encode(csvToArray($_POST['csv']))?> ;
+	</script>
 	<script type="text/javascript" src="/assets/js/main.js"></script>
 </head>
 <body class="mdui-loaded mdui-theme-primary-pink mdui-theme-accent-pink">

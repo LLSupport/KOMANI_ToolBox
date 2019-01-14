@@ -125,3 +125,9 @@
       margin: 0px;
       padding: 0px;
   }
+  .gameTi{
+    word-break: keep-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }

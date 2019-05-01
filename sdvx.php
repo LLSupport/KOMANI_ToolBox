@@ -27,14 +27,28 @@
 		$vf = floor(25*($level + 1)*($score / 10000000)*$grade);
 		return $vf;
 	}
+	function vf5($rank,$score,$level){
+		switch ($rank) {
+			case 'PLAYED':$rank_p = 0.5;break;
+			case 'COMPLETE':$rank_p = 1;break;
+			case 'EXCESSIVE COMPLETE':$rank_p = 1.02;break;
+			case 'ULTIMATE CHAIN':$rank_p = 1.05;break;
+			case 'PERFECT':$rank_p = 1.1;break;
+		}
+		$score_p = ($score >= 9900000 ? 1.05 : ($score >= 9800000 ? 1.02 : ($score >= 9700000 ? 1 : ($score >= 9500000 ? 0.97 : ($score >= 9300000 ? 0.94 : ($score >= 9000000 ? 0.91 : ($score >= 8700000 ? 0.88 : ($score >= 7500000 ? 0.85 : ($score >= 6500000 ? 0.82 : 0.8)))))))));
+		$vf =  round((($level*2)*($score/10000000)*$rank_p*$score_p/100),3);
+		return $vf;
+	}
 	function csvToArray($csv){
 		$lines = preg_split('/\r\n/',$csv);
 		$result = array();
 		foreach($lines as $line){
-			$header = array("song","difficulty","level","rival","grade","score","play_times","clear_times","uc_times","puc_times","vf");
+			$header = array("song","difficulty","level","rank","grade","score","play_times","clear_times","uc_times","puc_times","vf","vf5");
 			$obj = explode(',',$line);
 			$vf = vf($obj[5],$obj[2]);
 			array_push($obj,$vf);
+			$vf5 = vf5($obj[3],$obj[5],$obj[2]);
+			array_push($obj,$vf5);
 			$result[]=array_combine($header,$obj);
 		}
 		asort($result);
@@ -48,10 +62,25 @@
 		array_multisort($vf, SORT_DESC ,$data);
 		return array_slice($data,0,20);
 	}
+	function getTop50($csv){
+		$data = csvToArray($csv);
+		foreach ($data as $key => $row) {
+			$vf[$key] = $row['vf5'];
+		}
+		array_multisort($vf, SORT_DESC ,$data);
+		return array_slice($data,0,50);
+	}
 	function Top20VF($csv){
 		$data = getTop20($csv);
 		foreach ($data as $row) {
 			$totalVf += $row['vf']; 
+		}
+		return $totalVf;
+	}
+	function Top50VF($csv){
+		$data = getTop50($csv);
+		foreach ($data as $row) {
+			$totalVf += $row['vf5']; 
 		}
 		return $totalVf;
 	}
@@ -91,6 +120,7 @@
 		);
 		return $play;
 	}
+
 ?>
 
 <!DOCTYPE html>
@@ -159,20 +189,31 @@
 	    <div class="br"></div>
 	    <div class="mdui-card" style="display:<?=(isset($_POST['csv']))?'display':'none'?>">
 	      	<div class="mdui-card-primary">
-	       		<div class="mdui-card-primary-title">VF分析结果</div>
+	       		<div class="mdui-card-primary-title">VF Analysis</div>
 	      	</div>
 	      	<div class="mdui-card-content">
-	      		你的总VF为: <?=(isset($_POST['csv']))?Top20VF($_POST['csv']):''?><br>
+	      		Your VF on SOUND VOLTEX V VIVID WAVE:  <span style="color: red;"><?=(isset($_POST['csv']))?Top50VF($_POST['csv']):''?></span> (on test)<br>
+	      		Your VF on SOUND VOLTEX IV HEAVENLY HAVEN: <span style="color: red;"><?=(isset($_POST['csv']))?Top20VF($_POST['csv']):''?></span><br>
 	      		<img src="/assets/img/force_icon/<?=(isset($_POST['csv']) ? VFicon($_POST['csv']) : '')?>">
-	      		<div class="br"></div>
-	      		你的 BEST20 曲目信息：<br>
+	      		<div class="br"></div>VIVID WAVE BEST50:<br>
 	      		<div class="mdui-table-fluid">
 		      		<table class="mdui-table">
 		      			<thead>
-		      				<tr><th>歌曲名</th><th>难易度</th><th>等级</th><th>状态</th><th>评价</th><th>分数</th><th>游玩次数</th><th>通关次数</th><th>UC次数</th><th>PUC次数</th><th>所得VF</th></tr>
+		      				<tr><th>Name</th><th>Difficulty</th><th>Levels</th><th>Status</th><th>Grade</th><th>Score</th><th>Plays</th><th>Clear</th><th>UC</th><th>PUC</th><th>VF(4th)</th><th>VF(5th on test)</th></tr>
 		      			</thead>
 		      			<tbody>
-		      				<?if(isset($_POST['csv'])){foreach(getTop20($_POST['csv']) as $tr){print("<tr><td>".$tr['song']."</td><td>".$tr['difficulty']."</td><td>".$tr['level']."</td><td>".$tr['rival']."</td><td>".$tr['grade']."</td><td>".$tr['score']."</td><td>".$tr['play_times']."</td><td>".$tr['clear_times']."</td><td>".$tr['uc_times']."</td><td>".$tr['puc_times']."</td><td>".$tr['vf']."</td>");}}?>
+		      				<?if(isset($_POST['csv'])){foreach(getTop50($_POST['csv']) as $tr){print("<tr><td>".$tr['song']."</td><td>".$tr['difficulty']."</td><td>".$tr['level']."</td><td>".$tr['rank']."</td><td>".$tr['grade']."</td><td>".$tr['score']."</td><td>".$tr['play_times']."</td><td>".$tr['clear_times']."</td><td>".$tr['uc_times']."</td><td>".$tr['puc_times']."</td><td>".$tr['vf']."</td><td>".$tr['vf5']."</td>");}}?>
+		      			</tbody>
+					</table>
+		      	</div>
+	      		<div class="br"></div>HEAVENLY HAVEN BEST20:<br>
+	      		<div class="mdui-table-fluid">
+		      		<table class="mdui-table">
+		      			<thead>
+		      				<tr><th>Name</th><th>Difficulty</th><th>Levels</th><th>Status</th><th>Grade</th><th>Score</th><th>Plays</th><th>Clear</th><th>UC</th><th>PUC</th><th>VF(4th)</th><th>VF(5th)</th></tr>
+		      			</thead>
+		      			<tbody>
+		      				<?if(isset($_POST['csv'])){foreach(getTop20($_POST['csv']) as $tr){print("<tr><td>".$tr['song']."</td><td>".$tr['difficulty']."</td><td>".$tr['level']."</td><td>".$tr['rank']."</td><td>".$tr['grade']."</td><td>".$tr['score']."</td><td>".$tr['play_times']."</td><td>".$tr['clear_times']."</td><td>".$tr['uc_times']."</td><td>".$tr['puc_times']."</td><td>".$tr['vf']."</td><td>".$tr['vf5']."</td>");}}?>
 		      			</tbody>
 					</table>
 		      	</div>
@@ -181,21 +222,25 @@
 	    <div class="br"></div>
 	    <div class="mdui-card" style="display:<?=(isset($_POST['csv']))?'display':'none'?>">
 	      	<div class="mdui-card-primary">
-	       		<div class="mdui-card-primary-title">游玩等级分布</div>
+	       		<div class="mdui-card-primary-title">Level Maps</div>
 	      	</div>
 	      	<div class="mdui-card-content">
 	      		<div class="mdui-table-fluid">
 		      		<table class="mdui-table">
 		      			<thead>
-		      				<tr><th>歌曲等级</th><th>游玩次数</th><th>百分比</th></tr>
+		      				<tr><th>Song levels</th><th>Plays</th><th>Percentage</th></tr>
 		      			</thead>
 		      			<tbody>
-		      				<?if(isset($_POST['csv'])){foreach(countPlay($_POST['csv']) as $tr){print("<tr><td>".$tr['level']."</td><td>".$tr['played']."</td><td>".$tr['per']."%</td><td>");}}?>
+		      				<?if(isset($_POST['csv'])){foreach(countPlay($_POST['csv']) as $tr){print("<tr><td>".$tr['level']."</td><td>".$tr['played']."</td><td>".$tr['per']."%</td><td>");}}
+		      				?>
+
 		      			</tbody>
 					</table>
 		      	</div>
 	      	</div>
 	    </div>
 	</div>
+<?
+?>
 </body>
 </html>

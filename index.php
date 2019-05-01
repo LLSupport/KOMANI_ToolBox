@@ -3,6 +3,8 @@
 <html>
 <head>
 	<meta charset="utf-8" />
+	<meta name="description" content="KOMANI工具箱，一个神奇的网站！" />
+
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<meta name="mobile-web-app-capable" content="yes">
 	<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
@@ -37,7 +39,10 @@
 		<div class="mdui-toolbar mdui-color-theme">
 			<a class="mdui-typo-title" style="text-transform:capitalize;">KOMANI工具箱</a>
 			<div class="mdui-toolbar-spacer"></div>
-			<span class="mdui-btn mdui-btn-icon mdui-ripple mdui-ripple-white" onclick="window.open('https://github.com/LLSupport/KOMANI_ToolBox','MusicBox','height= 800,width=630,toolbar=no,menubar=no,location=no,status=no,scrollbars=no')">
+			<span class="mdui-btn mdui-btn-icon mdui-ripple mdui-ripple-white" onclick="window.open('https://www.lovelivesupport.com')">
+    			<i class="mdui-icon material-icons">home</i>
+    		</span>
+			<span class="mdui-btn mdui-btn-icon mdui-ripple mdui-ripple-white" onclick="window.open('https://github.com/LLSupport/KOMANI_ToolBox','Github','height= 800,width=630,toolbar=no,menubar=no,location=no,status=no,scrollbars=no')">
     			<i class="mdui-icon material-icons">new_releases</i>
     		</span>
 		</div>
@@ -52,15 +57,15 @@
 	      	</div>
 	      	<div class="mdui-card-content">
 	      		<div class="br"></div>
-	      		<p>此为USC基础软件：</p>
-	      		<a href="usc/base/usc_base.zip" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent" target="_blank">USC</a><br>
+	      		<p>此为USC基础软件：<br>当前版本：Ver 0.31 （主题修复）</p>
+	      		<a href="https://komani_dl.lovelivesupport.com/base/usc_base.zip?v=<?=time()?>" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent" target="_blank">USC</a><br>
 	      		<p>此为1~4代SDVX歌曲曲包：<br>*下载解压放置USC软件中 /songs 文件夹内</p>
-	      		<a href="usc/base/usc_1pack.zip" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent" target="_blank">1 SDVX曲包</a>
-	      		<a href="usc/base/usc_2pack.zip" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent" target="_blank">2 SDVX曲包</a>
-	      		<a href="usc/base/usc_3pack.zip" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent" target="_blank">3 SDVX曲包</a>
-	      		<a href="usc/base/usc_4pack.zip" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent" target="_blank">4 SDVX曲包</a>
+	      		<a href="https://komani_dl.lovelivesupport.com/base/usc_1pack.zip?v=<?=time()?>" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent" target="_blank">1 SDVX曲包</a>
+	      		<a href="https://komani_dl.lovelivesupport.com/base/usc_2pack.zip?v=<?=time()?>" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent" target="_blank">2 SDVX曲包</a>
+	      		<a href="https://komani_dl.lovelivesupport.com/base/usc_3pack.zip?v=<?=time()?>" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent" target="_blank">3 SDVX曲包</a>
+	      		<a href="https://komani_dl.lovelivesupport.com/base/usc_4pack.zip?v=<?=time()?>" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent" target="_blank">4 SDVX曲包</a>
 	      		<p>此为5代SDVX歌曲曲包（持续更新中）：<br>*下载解压放置USC软件中 /songs 文件夹内</p>
-	      		<a href="usc_pack.php" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent" target="_blank">5 SDVX曲包</a>
+	      		<a href="usc_pack.php?v=<?=time()?>" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent" target="_blank">5 SDVX曲包</a>
 	      		<p><b>* 此功能由 @yuancon 收集打包，由 Noah 提供下载 *</b><br><b>* 主体软件来自于 https://github.com/Drewol/unnamed-sdvx-clone *</b></p>
 	      	</div>
 	    </div>
@@ -327,7 +332,7 @@
 	    <div class="mdui-card">
 	      	<div class="mdui-card-primary">
 	       		<div class="mdui-card-primary-title">SDVX-CSV分析器</div>
-	        	<div class="mdui-card-primary-subtitle">CSV导入数据进行分析(e-amusement)</div>
+	        	<div class="mdui-card-primary-subtitle">CSV导入数据进行分析(e-amusement)支持SDVX V</div>
 	      	</div>
 	      	<div class="mdui-card-content">
 	      		<form method="post" action="sdvx.php">
@@ -341,5 +346,16 @@
 	      	</div>
 	    </div>
 	</div>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-88365111-6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-88365111-6');
+</script>
+
 </body>
 </html>
